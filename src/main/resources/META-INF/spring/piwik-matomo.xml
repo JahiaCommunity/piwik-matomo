@@ -17,7 +17,7 @@
     <bean class="org.jahiacommunity.modules.piwik.filter.PiwikTrackingToolFilter"  depends-on="piwikCacheService">
         <property name="priority" value="20" />
         <property name="applyOnConfigurations" value="page" />
-        <property name="template" value="${PiwikTrackingToolTemplate:/modules/piwik/WEB-INF/scripts/PiwikTrackingTool.groovy}"/>
+        <property name="template" value="${PiwikTrackingToolTemplate:/modules/piwik-matomo/WEB-INF/scripts/PiwikTrackingTool.groovy}"/>
         <property name="scriptEngineUtils" ref="scriptEngineUtils"/>
     </bean>
 

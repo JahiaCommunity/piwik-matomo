@@ -142,11 +142,11 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
 				bindings.put("jquery_min_resource", JS_JQUERY_MIN_FILE);
 
 
-				encodedPath = URLEncoder.encode("/modules/piwik/javascript/" + JS_TRACKINGTOOL_FILE, "UTF-8");
+				encodedPath = URLEncoder.encode("/modules/piwik-matomo/javascript/" + JS_TRACKINGTOOL_FILE, "UTF-8");
 				bindings.put("piwiktrackingtool_path", encodedPath);
 				bindings.put("piwiktrackingtool_resource", JS_TRACKINGTOOL_FILE);
 
-				encodedPath = URLEncoder.encode("/modules/piwik/javascript/" + JS_CONFIGURATION_FILE, "UTF-8");
+				encodedPath = URLEncoder.encode("/modules/piwik-matomo/javascript/" + JS_CONFIGURATION_FILE, "UTF-8");
 				bindings.put("piwikconfiguration_path", encodedPath);
 				bindings.put("piwikconfiguration_resource", JS_CONFIGURATION_FILE);
 
