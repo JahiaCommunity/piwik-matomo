@@ -1,2 +1,20 @@
 <jnt = 'http://www.jahia.org/jahia/nt/1.0'>
 <jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+<mix = 'http://www.jcp.org/jcr/mix/1.0'>
+<jcpwmix = 'http://www.jahiacommunity.org/piwik/mix/1.0'>
+<jcpwnt = 'http://www.jahiacommunity.org/piwik/nt/1.0'>
+
+[jcpwnt:piwikSettingsVariables] > jnt:content, mix:referenceable
+ - siteId (string)
+ - piwikServerUrl (string)
+ - isTrackingSearch (boolean) = 'true'
+ - searchResultCssSelector (string)
+ - searchKeywordCssSelector (string)
+ - searchCountCssSelector (string)
+ - isTrackingJahiaConnectionMode (boolean) = 'true'
+ - isTrackingJahiaLanguage (boolean) = 'true'
+ - isTrackingJahiaUsername (boolean) = 'false'
+ - isTrackingDomain (boolean) = 'false'
+ - trackingLiveOnly (boolean) = 'false'
+
+[jcpwnt:piwikSettings] > jnt:content, mix:title, jmix:siteComponent, jmix:studioOnly

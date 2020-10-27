@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content xmlns:j="http://www.jahia.org/jahia/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
    <modules jcr:primaryType="jnt:modules">
-      <piwik-matomo j:dependencies="default"
+      <piwik-matomo j:dependencies="default siteSettings"
                     j:modulePriority="0"
                     j:moduleType="module"
                     j:title="Matomo (ex Piwik) module"
@@ -10,8 +10,82 @@
          <files jcr:primaryType="jnt:folder"/>
          <contents jcr:primaryType="jnt:contentFolder"/>
          <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
-            <files jcr:primaryType="jnt:folder"/>
+            <files jcr:primaryType="jnt:folder">
+               <jcpwnt_piwikSettings.png j:height="16"
+                                          j:width="16"
+                                          jcr:mixinTypes="jmix:image"
+                                          jcr:primaryType="jnt:file">
+                  <jcr:content jcr:mimeType="image/png" jcr:primaryType="jnt:resource"/>
+               </jcpwnt_piwikSettings.png>
+            </files>
             <contents jcr:primaryType="jnt:contentFolder"/>
+            <site-settings-base j:view="siteSettings"
+                                jcr:mixinTypes="jmix:useUILocale"
+                                jcr:primaryType="jnt:template">
+               <j:translation_en jcr:language="en"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Settings"/>
+               <matomo-settings j:applyOn="jnt:virtualsite"
+                               j:defaultTemplate="true"
+                               j:hiddenTemplate="true"
+                               j:icon="/modules/piwik-matomo/templates/files/jcpwnt_piwikSettings.png"
+                               j:priority="200"
+                               jcr:primaryType="jnt:contentTemplate">
+                  <j:translation_en jcr:language="en"
+                                    jcr:mixinTypes="mix:title"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="Matomo settings"/>
+                  <pagecontent jcr:primaryType="jnt:contentList">
+                     <content-settings jcr:primaryType="jcpwnt:piwikSettings">
+                        <j:translation_en jcr:language="en"
+                                          jcr:mixinTypes="mix:title"
+                                          jcr:primaryType="jnt:translation"
+                                          jcr:title="Matomo settings"/>
+                        <j:translation_de jcr:language="de"
+                                          jcr:mixinTypes="mix:title"
+                                          jcr:primaryType="jnt:translation"
+                                          jcr:title="Matomo settings"/>
+                        <j:translation_it jcr:language="it"
+                                          jcr:mixinTypes="mix:title"
+                                          jcr:primaryType="jnt:translation"
+                                          jcr:title="Matomo settings"/>
+                        <j:translation_pt jcr:language="pt"
+                                          jcr:mixinTypes="mix:title"
+                                          jcr:primaryType="jnt:translation"
+                                          jcr:title="Matomo settings"/>
+                        <j:translation_fr jcr:language="fr"
+                                          jcr:mixinTypes="mix:title"
+                                          jcr:primaryType="jnt:translation"
+                                          jcr:title="Paramètres Matomo"/>
+                        <j:translation_es jcr:language="es"
+                                          jcr:mixinTypes="mix:title"
+                                          jcr:primaryType="jnt:translation"
+                                          jcr:title="Matomo settings"/>
+                     </content-settings>
+                  </pagecontent>
+               </matomo-settings>
+               <j:translation_de jcr:language="de"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Settings"/>
+               <j:translation_it jcr:language="it"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Settings"/>
+               <j:translation_pt jcr:language="pt"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Settings"/>
+               <j:translation_fr jcr:language="fr"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Settings"/>
+               <j:translation_es jcr:language="es"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Settings"/>
+            </site-settings-base>
          </templates>
       </piwik-matomo>
    </modules>
