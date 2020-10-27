@@ -16,6 +16,27 @@
     <packaging>bundle</packaging>
     <description>This is the custom module (Matomo (ex Piwik) module) for running on a Digital Experience Manager server.</description>
 
+    <inceptionYear>2020</inceptionYear>
+    <developers>
+        <developer>
+            <id>cedfou</id>
+            <name>FOURNEAU Cédric</name>
+            <organization>JahiaCommunity</organization>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <organization>JahiaCommunity</organization>
+        </contributor>
+    </contributors>
+
+    <url>https://github.com/JahiaCommunity/piwik-matomo</url>
+    <organization>
+        <name>Jahia Community</name>
+        <url>https://www.jahiacommunity.org</url>
+    </organization>
+
     <properties>
         <jahia-depends>default,siteSettings</jahia-depends>
     </properties>
@@ -26,6 +47,11 @@
         <url>scm:git:git@github.com:JahiaCommunity/piwik-matomo.git</url>
         <tag>HEAD</tag>
     </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/JahiaCommunity/piwik-matomo/issues</url>
+    </issueManagement>
 
     <distributionManagement>
         <repository>
