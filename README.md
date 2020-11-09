@@ -4,4 +4,4 @@
 
 Matomo Web Analytics
 ======================
-Matomo (ex Piwik) integration module
+Matomo (ex Piwik) integration module.
