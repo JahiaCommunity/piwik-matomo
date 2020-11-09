@@ -1,6 +1,6 @@
 package org.jahiacommunity.modules.piwik.action;
 
-import org.jahiacommunity.modules.piwik.cache.PiwikCacheService;
+import org.jahiacommunity.modules.piwik.cache.MatomoCacheService;
 import org.jahiacommunity.modules.piwik.utils.PiwikSettingsUtils;
 import net.sf.ehcache.Cache;
 import org.jahia.api.Constants;
@@ -28,17 +28,17 @@ import java.util.Map;
  * @author Cédric FOURNEAU (cedric.fourneau@chenconsulting.eu)
  *
  */
-public class PublishPiwikSettingsAction extends Action {
+public class PublishMatomoSettingsAction extends Action {
 
-    private static final Logger logger = LoggerFactory.getLogger(PublishPiwikSettingsAction.class);
+    private static final Logger logger = LoggerFactory.getLogger(PublishMatomoSettingsAction.class);
 
 	private JCRPublicationService publicationService;
 
     // Cache which keep the settings values
     private Cache cacheSettings;
 
-    public PublishPiwikSettingsAction() {
-        this.cacheSettings = PiwikCacheService.getPiwikSettingsCache();
+    public PublishMatomoSettingsAction() {
+        this.cacheSettings = MatomoCacheService.getPiwikSettingsCache();
     }
 
     /**

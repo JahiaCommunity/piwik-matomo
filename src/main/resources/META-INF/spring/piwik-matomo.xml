@@ -4,28 +4,28 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <bean class="org.jahiacommunity.modules.piwik.action.CustomizePiwikSettingsAction">
-        <property name="name" value="customizePiwikSettings" />
+    <bean class="org.jahiacommunity.modules.piwik.action.CustomizeMatomoSettingsAction">
+        <property name="name" value="customizeMatomoSettings" />
         <property name="settingsErrorMessage" value=""/>
     </bean>
 
-    <bean class="org.jahiacommunity.modules.piwik.action.PublishPiwikSettingsAction"  depends-on="piwikCacheService">
-        <property name="name" value="publishPiwikSettings" />
+    <bean class="org.jahiacommunity.modules.piwik.action.PublishMatomoSettingsAction"  depends-on="matomoCacheService">
+        <property name="name" value="publishMatomoSettings" />
         <property name="publicationService" ref="jcrPublicationService" />
     </bean>
 
-    <bean class="org.jahiacommunity.modules.piwik.filter.PiwikTrackingToolFilter"  depends-on="piwikCacheService">
+    <bean class="org.jahiacommunity.modules.piwik.filter.PiwikTrackingToolFilter"  depends-on="matomoCacheService">
         <property name="priority" value="20" />
         <property name="applyOnConfigurations" value="page" />
         <property name="template" value="${PiwikTrackingToolTemplate:/modules/piwik-matomo/WEB-INF/scripts/PiwikTrackingTool.groovy}"/>
         <property name="scriptEngineUtils" ref="scriptEngineUtils"/>
     </bean>
 
-    <bean id="piwikCacheService" class="org.jahiacommunity.modules.piwik.cache.PiwikCacheService">
+    <bean id="matomoCacheService" class="org.jahiacommunity.modules.piwik.cache.MatomoCacheService">
         <constructor-arg ref="ehCacheProvider" />
     </bean>
 
-    <!--bean id="contentTrack" class="org.jahiacommunity.modules.piwik.filter.PiwikTrackingContentFilter" depends-on="piwikCacheService">
+    <!--bean id="contentTrack" class="org.jahiacommunity.modules.piwik.filter.PiwikTrackingContentFilter" depends-on="matomoCacheService">
         <property name="description" value="track content" />
         <property name="priority" value="17" />
         <property name="applyOnNodeTypes" value="jcpwnt:article" />
@@ -33,7 +33,5 @@
         <property name="applyOnConfigurations" value="module,wrappedcontent" />
         <property name="applyOnModes" value="live" />
     </bean-->
-
-    <bean id="ehCacheProvider" class="org.jahia.services.cache.ehcache.EhCacheProvider"/>
 
 </beans>

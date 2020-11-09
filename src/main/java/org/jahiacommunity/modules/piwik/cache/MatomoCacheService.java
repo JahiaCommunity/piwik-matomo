@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
  * @author Cédric FOURNEAU (cedric.fourneau@chenconsulting.eu)
  *
  */
-public class PiwikCacheService {
+public class MatomoCacheService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PiwikCacheService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MatomoCacheService.class);
 
     private static EhCacheProvider ehCacheProvider;
     private static Cache cachePiwikSettings;
@@ -24,8 +24,8 @@ public class PiwikCacheService {
      * This method allows to spring to inject an instance of EhCacheProvider class and initialise caches used.
      * @param ehCacheProvider
      */
-    public PiwikCacheService(EhCacheProvider ehCacheProvider) {
-        PiwikCacheService.ehCacheProvider = ehCacheProvider;
+    public MatomoCacheService(EhCacheProvider ehCacheProvider) {
+        MatomoCacheService.ehCacheProvider = ehCacheProvider;
         initializeCache();
     }
 

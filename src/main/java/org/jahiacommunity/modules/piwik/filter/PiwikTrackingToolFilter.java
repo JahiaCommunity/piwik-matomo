@@ -1,6 +1,6 @@
 package org.jahiacommunity.modules.piwik.filter;
 
-import org.jahiacommunity.modules.piwik.cache.PiwikCacheService;
+import org.jahiacommunity.modules.piwik.cache.MatomoCacheService;
 import org.jahiacommunity.modules.piwik.utils.PiwikSettingsUtils;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.HTMLElementName;
@@ -72,7 +72,7 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
      * Constructor
      */
     public PiwikTrackingToolFilter() {
-        this.cacheSettings = PiwikCacheService.getPiwikSettingsCache();
+        this.cacheSettings = MatomoCacheService.getPiwikSettingsCache();
     }
 
     /**
@@ -228,7 +228,7 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
         // Check if the value is in the cache
         String cacheKey = propertyName + currentSiteKey;
 		if (cacheSettings == null) {
-			this.cacheSettings = PiwikCacheService.getPiwikSettingsCache();
+			this.cacheSettings = MatomoCacheService.getPiwikSettingsCache();
 		}
         net.sf.ehcache.Element elem = cacheSettings.get(cacheKey);
         if (elem == null) {

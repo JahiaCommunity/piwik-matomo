@@ -28,9 +28,9 @@ import java.util.Set;
  * @author Cédric FOURNEAU (cedric.fourneau@chenconsulting.eu)
  *
  */
-public class CustomizePiwikSettingsAction extends Action {
+public class CustomizeMatomoSettingsAction extends Action {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomizePiwikSettingsAction.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustomizeMatomoSettingsAction.class);
 
     private static String settingsErrorMessage ="";
 
@@ -184,6 +184,6 @@ public class CustomizePiwikSettingsAction extends Action {
     }
 
     public void setSettingsErrorMessage(String settingsErrorMessage) {
-        CustomizePiwikSettingsAction.settingsErrorMessage = settingsErrorMessage;
+        CustomizeMatomoSettingsAction.settingsErrorMessage = settingsErrorMessage;
     }
 }

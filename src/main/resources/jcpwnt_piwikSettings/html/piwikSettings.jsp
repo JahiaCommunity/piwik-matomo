@@ -214,7 +214,7 @@
 	</h1>
 
 	<form id="customize${mainResource.identifier}"
-		action="<c:url value='${url.base}${renderContext.site.path}.customizePiwikSettings.do'/>"
+		action="<c:url value='${url.base}${renderContext.site.path}.customizeMatomoSettings.do'/>"
 		method="post"
 		class="box-1"
 		onsubmit="workInProgress('${i18nWaiting}')">
@@ -415,7 +415,7 @@
 	<!-- Hidden form to reset values -->
 	<!-- *************************************** -->
 	<form id="reset${mainResource.identifier}"
-		action="<c:url value='${url.base}${renderContext.site.path}.customizePiwikSettings.do'/>"
+		action="<c:url value='${url.base}${renderContext.site.path}.customizeMatomoSettings.do'/>"
 		method="post" onsubmit="workInProgress('${i18nWaiting}')">
 
 		<input
@@ -438,7 +438,7 @@
 	<form id="publish${mainResource.identifier}"
 		onsubmit="workInProgress('${i18nWaiting}')"
 		method="post"
-		action="<c:url value='${url.base}${renderContext.site.path}.publishPiwikSettings.do'/>">
+		action="<c:url value='${url.base}${renderContext.site.path}.publishMatomoSettings.do'/>">
 
 		<input
 			type="hidden"
