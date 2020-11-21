@@ -4,34 +4,25 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <bean class="org.jahiacommunity.modules.piwik.action.CustomizeMatomoSettingsAction">
+    <bean class="org.jahiacommunity.modules.matomo.action.CustomizeMatomoSettingsAction">
         <property name="name" value="customizeMatomoSettings" />
         <property name="settingsErrorMessage" value=""/>
     </bean>
 
-    <bean class="org.jahiacommunity.modules.piwik.action.PublishMatomoSettingsAction"  depends-on="matomoCacheService">
+    <bean class="org.jahiacommunity.modules.matomo.action.PublishMatomoSettingsAction" depends-on="matomoCacheService">
         <property name="name" value="publishMatomoSettings" />
         <property name="publicationService" ref="jcrPublicationService" />
     </bean>
 
-    <bean class="org.jahiacommunity.modules.piwik.filter.PiwikTrackingToolFilter"  depends-on="matomoCacheService">
+    <bean class="org.jahiacommunity.modules.matomo.filter.MatomoTrackingToolFilter" depends-on="matomoCacheService">
         <property name="priority" value="20" />
         <property name="applyOnConfigurations" value="page" />
-        <property name="template" value="${PiwikTrackingToolTemplate:/modules/piwik-matomo/WEB-INF/scripts/PiwikTrackingTool.groovy}"/>
+        <property name="template" value="${matomoTrackingToolTemplate:/modules/piwik-matomo/WEB-INF/scripts/matomoTrackingTool.groovy}"/>
         <property name="scriptEngineUtils" ref="scriptEngineUtils"/>
     </bean>
 
-    <bean id="matomoCacheService" class="org.jahiacommunity.modules.piwik.cache.MatomoCacheService">
+    <bean id="matomoCacheService" class="org.jahiacommunity.modules.matomo.cache.MatomoCacheService">
         <constructor-arg ref="ehCacheProvider" />
     </bean>
-
-    <!--bean id="contentTrack" class="org.jahiacommunity.modules.piwik.filter.PiwikTrackingContentFilter" depends-on="matomoCacheService">
-        <property name="description" value="track content" />
-        <property name="priority" value="17" />
-        <property name="applyOnNodeTypes" value="jcpwnt:article" />
-        <property name="applyOnTemplateTypes" value="html" />
-        <property name="applyOnConfigurations" value="module,wrappedcontent" />
-        <property name="applyOnModes" value="live" />
-    </bean-->
 
 </beans>

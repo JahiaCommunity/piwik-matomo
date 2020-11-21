@@ -22,13 +22,11 @@
 	<!-- *************************************** -->
 	<!-- Retrieve settings values -->
 	<!-- *************************************** -->
-	<jcr:node var="settingsNode" path="${mainResource.resolveSite.path}/piwik_settings" />
+	<jcr:node var="settingsNode" path="${mainResource.resolveSite.path}/matomo_settings" />
 	<template:addCacheDependency node="${settingsNode}"/>
 
-	<!-- is no longer used -->
-	<!--<c:set var="piwikUrl" value="" />-->
 	<c:set var="siteId" value="" />
-	<c:set var="piwikServerUrl" value="" />
+	<c:set var="matomoServerUrl" value="" />
 	<c:set var="isTrackingSearch" value="${false}" />
 	<c:set var="searchResultCssSelector" value="" />
 	<c:set var="searchKeywordCssSelector" value="" />
@@ -56,14 +54,14 @@
 			</c:choose>
 
 			<!-- Piwik/Matomo Server Url -->
-			<jcr:nodeProperty node="${settingsNode}" name="piwikServerUrl" var="piwikServerUrl" />
+			<jcr:nodeProperty node="${settingsNode}" name="matomoServerUrl" var="matomoServerUrl" />
 
 			<c:choose>
-				<c:when test="${empty piwikServerUrl}">
-					<c:set var="piwikServerUrl" value="" />
+				<c:when test="${empty matomoServerUrl}">
+					<c:set var="matomoServerUrl" value="" />
 				</c:when>
 				<c:otherwise>
-					<c:set var="piwikServerUrl" value="${piwikServerUrl.string}" />
+					<c:set var="matomoServerUrl" value="${matomoServerUrl.string}" />
 				</c:otherwise>
 			</c:choose>
 
@@ -178,7 +176,7 @@
 				</c:otherwise>
 			</c:choose>
 
-			<!-- If script piwik for Tracking is integrated only in live-->
+			<!-- If script Matomo for Tracking is integrated only in live-->
 			<jcr:nodeProperty node="${settingsNode}" name="trackingLiveOnly" var="trackingLiveOnly" />
 
 			<c:choose>
@@ -203,14 +201,14 @@
 	<!-- *************************************** -->
 	<template:addResources type="javascript" resources="workInProgress.js" />
 
-	<fmt:message key="jcpwnt_piwikSettings.workInProgressTitle.label" var="i18nWaiting" />
+	<fmt:message key="jcpwnt_matomoSettings.workInProgressTitle.label" var="i18nWaiting" />
 	<c:set var="i18nWaiting" value="${functions:escapeJavaScript(i18nWaiting)}" />
 
 	<!-- *************************************** -->
 	<!-- Top header -->
 	<!-- *************************************** -->
 	<h1 id="header${mainResource.identifier}">
-		<fmt:message key="jcpwnt_piwikSettings.page.title" />
+		<fmt:message key="jcpwnt_matomoSettings.page.title" />
 	</h1>
 
 	<form id="customize${mainResource.identifier}"
@@ -222,7 +220,7 @@
 		<!-- Site ID -->
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="siteId"><fmt:message key="jcpwnt_piwikSettings.siteId.title" /></label>
+				<label for="siteId"><fmt:message key="jcpwnt_matomoSettings.siteId.title" /></label>
 			</div>
 			<div class="span9">
 				<input class="input-xxlarge" type="text" id="siteId" name="siteId" value="${fn:escapeXml(siteId)}" />
@@ -233,10 +231,10 @@
 		<!-- Piwik/Matomo Server Url -->
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="piwikServerUrl"><fmt:message key="jcpwnt_piwikSettings.piwikServerUrl.title" /></label>
+				<label for="matomoServerUrl"><fmt:message key="jcpwnt_matomoSettings.matomoServerUrl.title" /></label>
 			</div>
 			<div class="span9">
-				<input class="input-xxlarge" type="text" id="piwikServerUrl" name="piwikServerUrl" value="${fn:escapeXml(piwikServerUrl)}" />
+				<input class="input-xxlarge" type="text" id="matomoServerUrl" name="matomoServerUrl" value="${fn:escapeXml(matomoServerUrl)}" />
 			</div>
 		</div>
 
@@ -247,7 +245,7 @@
 		</c:if>
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="isTrackingSearch"><fmt:message key="jcpwnt_piwikSettings.isTrackingSearch.title" /></label>
+				<label for="isTrackingSearch"><fmt:message key="jcpwnt_matomoSettings.isTrackingSearch.title" /></label>
 			</div>
 			<div class="span9">
 				<input type="checkbox" id="isTrackingSearch" name="isTrackingSearch" value="true" ${isTrackingSearchChecked} />
@@ -257,7 +255,7 @@
 		<!-- Search result CSS Selector -->
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="searchResultCssSelector"><fmt:message key="jcpwnt_piwikSettings.searchResultCssSelector.title" /></label>
+				<label for="searchResultCssSelector"><fmt:message key="jcpwnt_matomoSettings.searchResultCssSelector.title" /></label>
 			</div>
 			<div class="span9">
 				<input class="input-xxlarge" type="text" id="searchResultCssSelector" name="searchResultCssSelector" value="${fn:escapeXml(searchResultCssSelector)}" />
@@ -267,7 +265,7 @@
 		<!-- Search keyword CSS Selector -->
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="searchKeywordCssSelector"><fmt:message key="jcpwnt_piwikSettings.searchKeywordCssSelector.title" /></label>
+				<label for="searchKeywordCssSelector"><fmt:message key="jcpwnt_matomoSettings.searchKeywordCssSelector.title" /></label>
 			</div>
 			<div class="span9">
 				<input class="input-xxlarge" type="text" id="searchKeywordCssSelector" name="searchKeywordCssSelector" value="${fn:escapeXml(searchKeywordCssSelector)}" />
@@ -277,7 +275,7 @@
 		<!-- Search count CSS Selector -->
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="searchCountCssSelector"><fmt:message key="jcpwnt_piwikSettings.searchCountCssSelector.title" /></label>
+				<label for="searchCountCssSelector"><fmt:message key="jcpwnt_matomoSettings.searchCountCssSelector.title" /></label>
 			</div>
 			<div class="span9">
 				<input class="input-xxlarge" type="text" id="searchCountCssSelector" name="searchCountCssSelector" value="${fn:escapeXml(searchCountCssSelector)}" />
@@ -292,7 +290,7 @@
 		</c:if>
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="isTrackingContent"><fmt:message key="jcpwnt_piwikSettings.isTrackingContent.title" /></label>
+				<label for="isTrackingContent"><fmt:message key="jcpwnt_matomoSettings.isTrackingContent.title" /></label>
 			</div>
 			<div class="span9">
 				<input type="checkbox" id="isTrackingContent" name="isTrackingContent" value="true" ${isTrackingContentChecked} />
@@ -307,7 +305,7 @@
 		</c:if>
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="isTrackingJahiaConnectionMode"><fmt:message key="jcpwnt_piwikSettings.isTrackingJahiaConnectionMode.title" /></label>
+				<label for="isTrackingJahiaConnectionMode"><fmt:message key="jcpwnt_matomoSettings.isTrackingJahiaConnectionMode.title" /></label>
 			</div>
 			<div class="span9">
 				<input type="checkbox" id="isTrackingJahiaConnectionMode" name="isTrackingJahiaConnectionMode" value="true" ${isTrackingJahiaConnectionModeChecked} />
@@ -321,7 +319,7 @@
 		</c:if>
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="isTrackingJahiaLanguage"><fmt:message key="jcpwnt_piwikSettings.isTrackingJahiaLanguage.title" /></label>
+				<label for="isTrackingJahiaLanguage"><fmt:message key="jcpwnt_matomoSettings.isTrackingJahiaLanguage.title" /></label>
 			</div>
 			<div class="span9">
 				<input type="checkbox" id="isTrackingJahiaLanguage" name="isTrackingJahiaLanguage" value="true" ${isTrackingJahiaLanguageChecked} />
@@ -335,7 +333,7 @@
 		</c:if>
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="isTrackingJahiaUsername"><fmt:message key="jcpwnt_piwikSettings.isTrackingJahiaUsername.title" /></label>
+				<label for="isTrackingJahiaUsername"><fmt:message key="jcpwnt_matomoSettings.isTrackingJahiaUsername.title" /></label>
 			</div>
 			<div class="span9">
 				<input type="checkbox" id="isTrackingJahiaUsername" name="isTrackingJahiaUsername" value="true" ${isTrackingJahiaUsernameChecked} />
@@ -349,7 +347,7 @@
 		</c:if>
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="isTrackingDomain"><fmt:message key="jcpwnt_piwikSettings.isTrackingDomain.title" /></label>
+				<label for="isTrackingDomain"><fmt:message key="jcpwnt_matomoSettings.isTrackingDomain.title" /></label>
 			</div>
 			<div class="span9">
 				<input type="checkbox" id="isTrackingDomain" name="isTrackingDomain" value="true" ${isTrackingDomainChecked} />
@@ -363,7 +361,7 @@
 		</c:if>
 		<div class="row-fluid">
 			<div class="span3">
-				<label for="trackingLiveOnly"><fmt:message key="jcpwnt_piwikSettings.trackingLiveOnly.title"/></label>
+				<label for="trackingLiveOnly"><fmt:message key="jcpwnt_matomoSettings.trackingLiveOnly.title"/></label>
 			</div>
 			<div class="span9">
 				<input type="checkbox" id="trackingLiveOnly" name="trackingLiveOnly" value="true" ${trackingLiveOnlyChecked} />
@@ -387,24 +385,24 @@
 				<!-- Submit button -->
 				<button class="btn btn-primary" type="submit">
 					<i class="icon-ok icon-white"></i>
-					<fmt:message key='jcpwnt_piwikSettings.save.btn.label' />
+					<fmt:message key='jcpwnt_matomoSettings.save.btn.label' />
 				</button>
 
 
 				<!-- Reset button -->
-				<fmt:message key="jcpwnt_piwikSettings.reset.confirm" var="resetConfirm" />
+				<fmt:message key="jcpwnt_matomoSettings.reset.confirm" var="resetConfirm" />
 
 				<button class="btn btn-danger" type="button"
 					onclick="if (confirm('${resetConfirm}')) {$('#reset${mainResource.identifier}').submit()}">
 					<i class="icon-refresh icon-white"></i>
-					<fmt:message key='jcpwnt_piwikSettings.reset.btn.label' />
+					<fmt:message key='jcpwnt_matomoSettings.reset.btn.label' />
 				</button>
 
 				<!-- Publish button -->
 				<button class="btn" name="publish" type="button"
 					onclick="$('#publish${mainResource.identifier}').submit()">
 					<i class="icon-globe"></i>
-					<fmt:message key='jcpwnt_piwikSettings.publish.btn.label' />
+					<fmt:message key='jcpwnt_matomoSettings.publish.btn.label' />
 				</button>
 			</div>
 		</div>

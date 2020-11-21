@@ -1,7 +1,7 @@
-package org.jahiacommunity.modules.piwik.filter;
+package org.jahiacommunity.modules.matomo.filter;
 
-import org.jahiacommunity.modules.piwik.cache.MatomoCacheService;
-import org.jahiacommunity.modules.piwik.utils.PiwikSettingsUtils;
+import org.jahiacommunity.modules.matomo.cache.MatomoCacheService;
+import org.jahiacommunity.modules.matomo.utils.MatomoSettingsUtils;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.HTMLElementName;
 import net.htmlparser.jericho.OutputDocument;
@@ -36,13 +36,13 @@ import java.util.List;
  * @author Cédric FOURNEAU (cedric.fourneau@chenconsulting.eu)
  *
  */
-public class PiwikTrackingToolFilter extends AbstractFilter {
+public class MatomoTrackingToolFilter extends AbstractFilter {
 
-	private static final Logger logger = LoggerFactory.getLogger(PiwikTrackingToolFilter.class);
+	private static final Logger logger = LoggerFactory.getLogger(MatomoTrackingToolFilter.class);
 
 	private static final String JS_JQUERY_MIN_FILE = "jquery.min.js";
-	private static final String JS_TRACKINGTOOL_FILE = "piwikTrackingTool.js";
-	private static final String JS_CONFIGURATION_FILE = "piwikConfiguration.js";
+	private static final String JS_TRACKINGTOOL_FILE = "matomoTrackingTool.js";
+	private static final String JS_CONFIGURATION_FILE = "matomoConfiguration.js";
 
     private Cache cacheSettings = null;
 
@@ -52,7 +52,7 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
 	private ScriptEngineUtils scriptEngineUtils;
 
 	private String siteId = null;
-	private String piwikServerUrl = null;
+	private String matomoServerUrl = null;
 	private String isTrackingSearch = "false";
     private String isTrackingContent = "false";
 	private String searchResultCssSelector = null;
@@ -71,12 +71,12 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
     /**
      * Constructor
      */
-    public PiwikTrackingToolFilter() {
-        this.cacheSettings = MatomoCacheService.getPiwikSettingsCache();
+    public MatomoTrackingToolFilter() {
+        this.cacheSettings = MatomoCacheService.getMatomoSettingsCache();
     }
 
     /**
-     * Method executed by the filter to add the PIWIK javascript code in the page.
+     * Method executed by the filter to add the MATOMO javascript code in the page.
      */
 	@Override
 	public String execute(String previousOut, RenderContext renderContext, Resource resource, RenderChain chain) throws Exception {
@@ -91,26 +91,26 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
 		this.language = resource.getLocale().getLanguage();
 
 		JCRNodeWrapper settingsNode = null;
-        if (renderContext.getSite().hasNode(PiwikSettingsUtils.SETTINGS_NODE_NAME)) {
-            settingsNode = renderContext.getSite().getNode(PiwikSettingsUtils.SETTINGS_NODE_NAME);
+        if (renderContext.getSite().hasNode(MatomoSettingsUtils.SETTINGS_NODE_NAME)) {
+            settingsNode = renderContext.getSite().getNode(MatomoSettingsUtils.SETTINGS_NODE_NAME);
 			resource.getDependencies().add(settingsNode.getCanonicalPath());
 
-			siteId = lookupProperty(PiwikSettingsUtils.SITE_ID, settingsNode);
-			piwikServerUrl = lookupProperty(PiwikSettingsUtils.PIWIK_SERVER_URL, settingsNode);
-			isTrackingSearch = lookupProperty(PiwikSettingsUtils.ISTRACKINGSEARCH_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
-			isTrackingContent = lookupProperty(PiwikSettingsUtils.ISTRACKINGCONTENT_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
-			searchResultCssSelector = lookupProperty(PiwikSettingsUtils.SEARCH_RESULT_CSS_SELECTOR, settingsNode);
-			searchKeywordCssSelector = lookupProperty(PiwikSettingsUtils.SEARCH_KEYWORD_CSS_SELECTOR, settingsNode);
-			searchCountCssSelector = lookupProperty(PiwikSettingsUtils.SEARCH_COUNT_CSS_SELECTOR, settingsNode);
-			isTrackingJahiaConnectionMode = lookupProperty(PiwikSettingsUtils.ISTRACKINGJAHIACONNECTIONMODE_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
-			isTrackingJahiaLanguage = lookupProperty(PiwikSettingsUtils.ISTRACKINGJAHIALANGUAGE_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
-			isTrackingJahiaUsername = lookupProperty(PiwikSettingsUtils.ISTRACKINGJAHIAUSERNAME_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
-			isTrackingDomain = lookupProperty(PiwikSettingsUtils.ISTRACKINGDOMAIN_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
-			trackingLiveOnly = lookupProperty(PiwikSettingsUtils.TRACKING_LIVE_ONLY, settingsNode) == "" ? false : true;
+			siteId = lookupProperty(MatomoSettingsUtils.SITE_ID, settingsNode);
+			matomoServerUrl = lookupProperty(MatomoSettingsUtils.MATOMO_SERVER_URL, settingsNode);
+			isTrackingSearch = lookupProperty(MatomoSettingsUtils.ISTRACKINGSEARCH_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
+			isTrackingContent = lookupProperty(MatomoSettingsUtils.ISTRACKINGCONTENT_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
+			searchResultCssSelector = lookupProperty(MatomoSettingsUtils.SEARCH_RESULT_CSS_SELECTOR, settingsNode);
+			searchKeywordCssSelector = lookupProperty(MatomoSettingsUtils.SEARCH_KEYWORD_CSS_SELECTOR, settingsNode);
+			searchCountCssSelector = lookupProperty(MatomoSettingsUtils.SEARCH_COUNT_CSS_SELECTOR, settingsNode);
+			isTrackingJahiaConnectionMode = lookupProperty(MatomoSettingsUtils.ISTRACKINGJAHIACONNECTIONMODE_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
+			isTrackingJahiaLanguage = lookupProperty(MatomoSettingsUtils.ISTRACKINGJAHIALANGUAGE_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
+			isTrackingJahiaUsername = lookupProperty(MatomoSettingsUtils.ISTRACKINGJAHIAUSERNAME_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
+			isTrackingDomain = lookupProperty(MatomoSettingsUtils.ISTRACKINGDOMAIN_PROPERTY_NAME, settingsNode) == "" ? "false" : "true";
+			trackingLiveOnly = lookupProperty(MatomoSettingsUtils.TRACKING_LIVE_ONLY, settingsNode) == "" ? false : true;
 		}
 
-		// Script de configuration des paramètres Piwik.
-		// Paramètres sont configurés sur la vue jcpwnt_piwikSettings.
+		// Script de configuration des paramètres MATOMO.
+		// Paramètres sont configurés sur la vue jcpwnt_matomoSettings.
 		String script = getResolvedTemplate(this.template);
 		if (script != null) {
 
@@ -118,10 +118,10 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
 			for (Element element : bodyElementList) {
 				String extension = StringUtils.substringAfterLast(template, ".");
 				ScriptEngine scriptEngine = scriptEngineUtils.scriptEngine(extension);
-				ScriptContext scriptContext = new PiwikTrackingToolScriptContext();
+				ScriptContext scriptContext = new matomoTrackingToolScriptContext();
 				final Bindings bindings = scriptEngine.createBindings();
 				bindings.put("siteId", this.siteId);
-				bindings.put("piwikServerUrl", this.piwikServerUrl);
+				bindings.put("matomoServerUrl", this.matomoServerUrl);
 				bindings.put("isTrackingSearch", this.isTrackingSearch);
                 bindings.put("isTrackingContent", this.isTrackingContent);
 				bindings.put("searchResultCssSelector", this.searchResultCssSelector);
@@ -135,30 +135,28 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
 				bindings.put("jahiaUsername", this.jahiaUsername);
 				bindings.put("language", this.language);
 
-				//TODO: check si fonctionne avec module ASSETS de JAHIA + remplacer par + générique?
-				//for Scustom project, jquery url = http://localhost/modules/assets/javascript/build/jquery.min.js
-				String encodedPath = URLEncoder.encode("/modules/assets/javascript/build/" + JS_JQUERY_MIN_FILE, "UTF-8");
+				String encodedPath = URLEncoder.encode("/modules/jquery/javascript/" + JS_JQUERY_MIN_FILE, "UTF-8");
 				bindings.put("jquery_min_path", encodedPath);
 				bindings.put("jquery_min_resource", JS_JQUERY_MIN_FILE);
 
 
 				encodedPath = URLEncoder.encode("/modules/piwik-matomo/javascript/" + JS_TRACKINGTOOL_FILE, "UTF-8");
-				bindings.put("piwiktrackingtool_path", encodedPath);
-				bindings.put("piwiktrackingtool_resource", JS_TRACKINGTOOL_FILE);
+				bindings.put("matomoTrackingTool_path", encodedPath);
+				bindings.put("matomoTrackingTool_resource", JS_TRACKINGTOOL_FILE);
 
 				encodedPath = URLEncoder.encode("/modules/piwik-matomo/javascript/" + JS_CONFIGURATION_FILE, "UTF-8");
-				bindings.put("piwikconfiguration_path", encodedPath);
-				bindings.put("piwikconfiguration_resource", JS_CONFIGURATION_FILE);
+				bindings.put("matomoConfiguration_path", encodedPath);
+				bindings.put("matomoConfiguration_resource", JS_CONFIGURATION_FILE);
 
 				scriptContext.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
 				scriptEngine.eval(script, scriptContext);
 				StringWriter writer = (StringWriter) scriptContext.getWriter();
-				final String piwikSettingsScript = writer.toString();
+				final String matomoSettingsScript = writer.toString();
 
 				if(!trackingLiveOnly || renderContext.getMode().equals("live")){
-		               if (StringUtils.isNotBlank(piwikSettingsScript)) {
+		               if (StringUtils.isNotBlank(matomoSettingsScript)) {
                         outputDocument.replace(element.getEndTag().getBegin() - 1, element.getEndTag().getBegin(),
-                                "\n" + AggregateCacheFilter.removeCacheTags(piwikSettingsScript) + "\n");
+                                "\n" + AggregateCacheFilter.removeCacheTags(matomoSettingsScript) + "\n");
 		                }
 				}
 				// logger.error("Fake Error for test : " +
@@ -173,11 +171,11 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
 	}
 
     /**
-     * This method is called by JAHIA and allows to verify the following condition. The PIWIK filter will be executed only on sites with PIWIK modules installed.
+     * This method is called by JAHIA and allows to verify the following condition. The MATOMO filter will be executed only on sites with MATOMO modules installed.
      */
 	@Override
 	public boolean areConditionsMatched(RenderContext renderContext, Resource resource) {
-		return super.areConditionsMatched(renderContext, resource) && renderContext.getSite().getAllInstalledModules().contains("piwik");
+		return super.areConditionsMatched(renderContext, resource) && renderContext.getSite().getAllInstalledModules().contains("piwik-matomo");
 	}
 
 	public void setTemplate(String template) {
@@ -195,7 +193,7 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
 		return resolvedTemplate;
 	}
 
-	class PiwikTrackingToolScriptContext extends SimpleScriptContext {
+	class matomoTrackingToolScriptContext extends SimpleScriptContext {
 		private Writer writer = null;
 
 		/**
@@ -215,27 +213,27 @@ public class PiwikTrackingToolFilter extends AbstractFilter {
     }
 
     /**
-     * This method looks for the property with "propertyName" in the specified node "nodeSettingsPiwik" and put its value in cache "cacheSettings". If property's value is null, empty string ("") is
+     * This method looks for the property with "propertyName" in the specified node "nodeSettingsMatomo" and put its value in cache "cacheSettings". If property's value is null, empty string ("") is
      * put in cache.
      *
      * @param propertyName
      *            : the name of the property looked for
-     * @param nodeSettingsPiwik
+     * @param nodeSettingsMatomo
      *            : the node where the property must be found
      * @return String : property's value
      */
-    private String lookupProperty(String propertyName, JCRNodeWrapper nodeSettingsPiwik) {
+    private String lookupProperty(String propertyName, JCRNodeWrapper nodeSettingsMatomo) {
         // Check if the value is in the cache
         String cacheKey = propertyName + currentSiteKey;
 		if (cacheSettings == null) {
-			this.cacheSettings = MatomoCacheService.getPiwikSettingsCache();
+			this.cacheSettings = MatomoCacheService.getMatomoSettingsCache();
 		}
         net.sf.ehcache.Element elem = cacheSettings.get(cacheKey);
         if (elem == null) {
             // If it is not in the cache we get the value from the JCR and put
             // the found value in the cache, or if the found value == null put
             // empty string ("") in cache
-            String value = nodeSettingsPiwik.getPropertyAsString(propertyName);
+            String value = nodeSettingsMatomo.getPropertyAsString(propertyName);
             if (value == null) {
                 elem = new net.sf.ehcache.Element(cacheKey, "");
             } else {

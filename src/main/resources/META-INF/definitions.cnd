@@ -4,9 +4,9 @@
 <jcpwmix = 'http://www.jahiacommunity.org/piwik/mix/1.0'>
 <jcpwnt = 'http://www.jahiacommunity.org/piwik/nt/1.0'>
 
-[jcpwnt:piwikSettingsVariables] > jnt:content, mix:referenceable
+[jcpwnt:matomoSettingsVariables] > jnt:content, mix:referenceable
  - siteId (string)
- - piwikServerUrl (string)
+ - matomoServerUrl (string)
  - isTrackingSearch (boolean) = 'true'
  - searchResultCssSelector (string)
  - searchKeywordCssSelector (string)
@@ -17,4 +17,4 @@
  - isTrackingDomain (boolean) = 'false'
  - trackingLiveOnly (boolean) = 'false'
 
-[jcpwnt:piwikSettings] > jnt:content, mix:title, jmix:siteComponent, jmix:studioOnly
+[jcpwnt:matomoSettings] > jnt:content, mix:title, jmix:siteComponent, jmix:studioOnly

@@ -1,6 +1,6 @@
-package org.jahiacommunity.modules.piwik.action;
+package org.jahiacommunity.modules.matomo.action;
 
-import org.jahiacommunity.modules.piwik.utils.PiwikSettingsUtils;
+import org.jahiacommunity.modules.matomo.utils.MatomoSettingsUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jahia.bin.Action;
@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This is used when the save button in piwikSettings page is pressed
+ * This is used when the save button in matomoSettings page is pressed
  *
  * @author Cédric FOURNEAU (cedric.fourneau@chenconsulting.eu)
  *
@@ -36,17 +36,17 @@ public class CustomizeMatomoSettingsAction extends Action {
 
 	private static Set<String> booleanProperties = new HashSet<String>();
 	static {
-		booleanProperties.add(PiwikSettingsUtils.ISTRACKINGSEARCH_PROPERTY_NAME);
-        booleanProperties.add(PiwikSettingsUtils.ISTRACKINGCONTENT_PROPERTY_NAME);
-		booleanProperties.add(PiwikSettingsUtils.ISTRACKINGJAHIACONNECTIONMODE_PROPERTY_NAME);
-		booleanProperties.add(PiwikSettingsUtils.ISTRACKINGJAHIALANGUAGE_PROPERTY_NAME);
-		booleanProperties.add(PiwikSettingsUtils.ISTRACKINGJAHIAUSERNAME_PROPERTY_NAME);
-		booleanProperties.add(PiwikSettingsUtils.ISTRACKINGDOMAIN_PROPERTY_NAME);
-		booleanProperties.add(PiwikSettingsUtils.TRACKING_LIVE_ONLY);
+		booleanProperties.add(MatomoSettingsUtils.ISTRACKINGSEARCH_PROPERTY_NAME);
+        booleanProperties.add(MatomoSettingsUtils.ISTRACKINGCONTENT_PROPERTY_NAME);
+		booleanProperties.add(MatomoSettingsUtils.ISTRACKINGJAHIACONNECTIONMODE_PROPERTY_NAME);
+		booleanProperties.add(MatomoSettingsUtils.ISTRACKINGJAHIALANGUAGE_PROPERTY_NAME);
+		booleanProperties.add(MatomoSettingsUtils.ISTRACKINGJAHIAUSERNAME_PROPERTY_NAME);
+		booleanProperties.add(MatomoSettingsUtils.ISTRACKINGDOMAIN_PROPERTY_NAME);
+		booleanProperties.add(MatomoSettingsUtils.TRACKING_LIVE_ONLY);
 	}
 
     /**
-     * Action launched when the save button in piwikSettings page is pressed
+     * Action launched when the save button in matomoSettings page is pressed
      */
 	@Override
 	public ActionResult doExecute(HttpServletRequest request,
@@ -59,18 +59,18 @@ public class CustomizeMatomoSettingsAction extends Action {
 
 		JCRSiteNode site = renderContext.getSite();
 		if (parameters.keySet().contains("reset")) {
-			if (site.hasNode(PiwikSettingsUtils.SETTINGS_NODE_NAME)) {
-				site.getNode(PiwikSettingsUtils.SETTINGS_NODE_NAME).remove();
+			if (site.hasNode(MatomoSettingsUtils.SETTINGS_NODE_NAME)) {
+				site.getNode(MatomoSettingsUtils.SETTINGS_NODE_NAME).remove();
 				session.save();
 			}
 			return ActionResult.OK;
 		}
 
 		JCRNodeWrapper settingsNode = null;
-		if (site.hasNode(PiwikSettingsUtils.SETTINGS_NODE_NAME)) {
-			settingsNode = site.getNode(PiwikSettingsUtils.SETTINGS_NODE_NAME);
+		if (site.hasNode(MatomoSettingsUtils.SETTINGS_NODE_NAME)) {
+			settingsNode = site.getNode(MatomoSettingsUtils.SETTINGS_NODE_NAME);
 		} else {
-			settingsNode = site.addNode(PiwikSettingsUtils.SETTINGS_NODE_NAME, PiwikSettingsUtils.SETTINGS_NODE_TYPE);
+			settingsNode = site.addNode(MatomoSettingsUtils.SETTINGS_NODE_NAME, MatomoSettingsUtils.SETTINGS_NODE_TYPE);
 		}
 
 		Set<String> parametersNames = parameters.keySet();
@@ -113,7 +113,7 @@ public class CustomizeMatomoSettingsAction extends Action {
 	}
 
     /**
-     * This method remove the property's value from the PIWIK settings node given in parameter
+     * This method remove the property's value from the MATOMO settings node given in parameter
      *
      * @param node
      *            : the node where the property must be removed
@@ -128,7 +128,7 @@ public class CustomizeMatomoSettingsAction extends Action {
 	}
 
     /**
-     * This method update the property's value from the PIWIK settings node given in parameter
+     * This method update the property's value from the MATOMO settings node given in parameter
      *
      * @param node
      *            : the node where the property must be updated
@@ -143,7 +143,7 @@ public class CustomizeMatomoSettingsAction extends Action {
 	}
 
     /**
-     * This method update the property's value from the PIWIK settings node given in parameter (multi-valued)
+     * This method update the property's value from the MATOMO settings node given in parameter (multi-valued)
      *
      * @param node
      *            : the node where the property must be updated

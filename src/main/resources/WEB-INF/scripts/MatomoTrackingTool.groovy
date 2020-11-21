@@ -4,9 +4,9 @@ println(" \n"+
 	"<script type=\"text/javascript\" > \n" +
 
 		" <!-- \n" +
-		"var piwikSettings = {\n" +
+		"var matomoSettings = {\n" +
 			"siteId: \"${siteId}\", \n" +
-			"piwikServerUrl: \"${piwikServerUrl}\", \n" +
+			"matomoServerUrl: \"${matomoServerUrl}\", \n" +
 			"isTrackingSearch: \"${isTrackingSearch}\", \n" +
 			"isTrackingContent: \"${isTrackingContent}\", \n" +
 			"searchResultCssSelector: \"${searchResultCssSelector}\", \n" +
@@ -30,6 +30,6 @@ println(" \n"+
 )
 
 
-println("<jahia:resource type=\"javascript\" path=\"${piwikconfiguration_path}\" resource=\"${piwikconfiguration_resource}\" title=\"\" key=\"\" insert=\"true\" />\n")
-println("<jahia:resource type=\"javascript\" path=\"${piwiktrackingtool_path}\" resource=\"${piwiktrackingtool_resource}\" title=\"\" key=\"\" insert=\"true\" />\n")
+println("<jahia:resource type=\"javascript\" path=\"${matomoConfiguration_path}\" resource=\"${matomoConfiguration_resource}\" title=\"\" key=\"\" insert=\"true\" />\n")
+println("<jahia:resource type=\"javascript\" path=\"${matomoTrackingTool_path}\" resource=\"${matomoTrackingTool_resource}\" title=\"\" key=\"\" insert=\"true\" />\n")
 println("<jahia:resource type=\"javascript\" path=\"${jquery_min_path}\" resource=\"${jquery_min_resource}\" title=\"\" key=\"\" insert=\"true\" />\n")

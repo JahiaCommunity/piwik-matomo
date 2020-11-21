@@ -1,7 +1,7 @@
-package org.jahiacommunity.modules.piwik.action;
+package org.jahiacommunity.modules.matomo.action;
 
-import org.jahiacommunity.modules.piwik.cache.MatomoCacheService;
-import org.jahiacommunity.modules.piwik.utils.PiwikSettingsUtils;
+import org.jahiacommunity.modules.matomo.cache.MatomoCacheService;
+import org.jahiacommunity.modules.matomo.utils.MatomoSettingsUtils;
 import net.sf.ehcache.Cache;
 import org.jahia.api.Constants;
 import org.jahia.bin.Action;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class used when the publish button in the page piwikSettings is pressed
+ * Class used when the publish button in the page matomoSettings is pressed
  *
  * @author Cédric FOURNEAU (cedric.fourneau@chenconsulting.eu)
  *
@@ -38,11 +38,11 @@ public class PublishMatomoSettingsAction extends Action {
     private Cache cacheSettings;
 
     public PublishMatomoSettingsAction() {
-        this.cacheSettings = MatomoCacheService.getPiwikSettingsCache();
+        this.cacheSettings = MatomoCacheService.getMatomoSettingsCache();
     }
 
     /**
-     * Action launched when the publish button in the page piwikSettings is pressed
+     * Action launched when the publish button in the page matomoSettings is pressed
      */
 	@Override
 	public ActionResult doExecute(HttpServletRequest request,
@@ -53,26 +53,26 @@ public class PublishMatomoSettingsAction extends Action {
 		JCRSiteNode site = renderContext.getSite();
         String currentSiteKey = site.getSiteKey();
 		JCRNodeWrapper settingsNode;
-		if (site.hasNode(PiwikSettingsUtils.SETTINGS_NODE_NAME)) {
-			settingsNode = site.getNode(PiwikSettingsUtils.SETTINGS_NODE_NAME);
+		if (site.hasNode(MatomoSettingsUtils.SETTINGS_NODE_NAME)) {
+			settingsNode = site.getNode(MatomoSettingsUtils.SETTINGS_NODE_NAME);
             List<PublicationInfo> tree = publicationService.getPublicationInfo(settingsNode.getIdentifier(), null, true, true, true, Constants.EDIT_WORKSPACE,
                     Constants.LIVE_WORKSPACE);
             publicationService.publishByInfoList(tree, Constants.EDIT_WORKSPACE, Constants.LIVE_WORKSPACE, false, new ArrayList<String>());
             // Flush the cache to take account of values modifications
-            cacheSettings.remove(PiwikSettingsUtils.ISTRACKINGDOMAIN_PROPERTY_NAME+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.ISTRACKINGJAHIACONNECTIONMODE_PROPERTY_NAME+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.ISTRACKINGJAHIALANGUAGE_PROPERTY_NAME+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.ISTRACKINGJAHIAUSERNAME_PROPERTY_NAME+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.ISTRACKINGSEARCH_PROPERTY_NAME+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.ISTRACKINGCONTENT_PROPERTY_NAME+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.SEARCH_COUNT_CSS_SELECTOR+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.SEARCH_KEYWORD_CSS_SELECTOR+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.SEARCH_RESULT_CSS_SELECTOR+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.SITE_ID+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.PIWIK_SERVER_URL+currentSiteKey);
-            cacheSettings.remove(PiwikSettingsUtils.TRACKING_LIVE_ONLY+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.ISTRACKINGDOMAIN_PROPERTY_NAME+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.ISTRACKINGJAHIACONNECTIONMODE_PROPERTY_NAME+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.ISTRACKINGJAHIALANGUAGE_PROPERTY_NAME+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.ISTRACKINGJAHIAUSERNAME_PROPERTY_NAME+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.ISTRACKINGSEARCH_PROPERTY_NAME+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.ISTRACKINGCONTENT_PROPERTY_NAME+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.SEARCH_COUNT_CSS_SELECTOR+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.SEARCH_KEYWORD_CSS_SELECTOR+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.SEARCH_RESULT_CSS_SELECTOR+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.SITE_ID+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.MATOMO_SERVER_URL+currentSiteKey);
+            cacheSettings.remove(MatomoSettingsUtils.TRACKING_LIVE_ONLY+currentSiteKey);
         }else{
-            logger.warn("The "+PiwikSettingsUtils.SETTINGS_NODE_NAME+" was not found. It's mandatory to save the values before publish them");
+            logger.warn("The "+ MatomoSettingsUtils.SETTINGS_NODE_NAME+" was not found. It's mandatory to save the values before publish them");
 		}
 
 		return ActionResult.OK;

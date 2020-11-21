@@ -1,17 +1,17 @@
-package org.jahiacommunity.modules.piwik.utils;
+package org.jahiacommunity.modules.matomo.utils;
 
 
-public class PiwikSettingsUtils {
+public class MatomoSettingsUtils {
 
 	/**
 	 * Settings node name
 	 */
-	public static final String SETTINGS_NODE_NAME = "piwik_settings";
+	public static final String SETTINGS_NODE_NAME = "matomo_settings";
 
 	/**
 	 * Settings node type
 	 */
-	public static final String SETTINGS_NODE_TYPE = "jcpwnt:piwikSettingsVariables";
+	public static final String SETTINGS_NODE_TYPE = "jcpwnt:matomoSettingsVariables";
 
 
 	/**
@@ -21,7 +21,7 @@ public class PiwikSettingsUtils {
 	public static final String SEARCH_KEYWORD_CSS_SELECTOR = "searchKeywordCssSelector";
 	public static final String SEARCH_COUNT_CSS_SELECTOR = "searchCountCssSelector";
 	public static final String SITE_ID = "siteId";
-	public static final String PIWIK_SERVER_URL = "piwikServerUrl";
+	public static final String MATOMO_SERVER_URL = "matomoServerUrl";
 
 	/**
 	 * Boolean Settings node's properties
@@ -37,9 +37,9 @@ public class PiwikSettingsUtils {
 
 
 	/**
-	 * Cache of piwik settings
+	 * Cache of Matomo settings
 	 */
-	// Cache to store the piwik settings
+	// Cache to store the Matomo settings
 	public static final String SETTINGS_NAME_CACHE = "Piwik-MATOMO-Cache-Settings";
 	// 0 == no limit
 	public static final int SETTINGS_MAX_ELEMENTS_IN_MEMORY_CACHE = 0;

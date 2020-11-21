@@ -1,14 +1,14 @@
 // Global piwik configuration
 var _paq = _paq || [];
 
-function piwikRetrieveSettings() {
-	return piwikSettings;
+function matomoRetrieveSettings() {
+	return matomoSettings;
 }
 
 
 // When DOM is ready
 $(document).ready(function() {
-    piwikInitDashboard(_paq, jahiaConnectionMode, jahiaUsername, language);
+    matomoInitDashboard(_paq, jahiaConnectionMode, jahiaUsername, language);
 
     jQuery.cachedScript = function( url, options ) {
         // Allow user to set any option except for dataType, cache, and url
@@ -23,7 +23,7 @@ $(document).ready(function() {
     };
 
     // Usage
-    $.cachedScript( piwikSettings.piwikServerUrl+"/piwik/piwik.js" ).done(function( script, textStatus ) {
+    $.cachedScript( matomoSettings.matomoServerUrl+"/piwik/piwik.js" ).done(function( script, textStatus ) {
         console.log( textStatus );
     });
 
